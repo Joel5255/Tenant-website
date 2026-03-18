@@ -1,13 +1,13 @@
 <?php
-// Database configuration for Supabase - Website version
+// Database configuration for Render PostgreSQL
 class DatabaseConfig {
     public static function getConnection() {
-        // Supabase PostgreSQL connection for website
-        $host = "db.vcgmqckgxbpjwfdxgwbt.supabase.co";
+        // Render PostgreSQL connection
+        $host = "dpg-d6tht7fkijhs73f5j7gg-a.oregon-postgres.render.com";
         $port = "5432";
-        $database = "postgres";
-        $user = "postgres";
-        $password = "BvwOmOLWSGRzbYMQ";
+        $database = "financial_literacy_db_fyo7";
+        $user = "financial_literacy_db_fyo7_user";
+        $password = "55Qigb5CmHmDd7gmyXDGjyp3ypaFCDjz";
         
         try {
             // PostgreSQL connection with explicit parameters
@@ -26,5 +26,4 @@ class DatabaseConfig {
         }
     }
 }
-?>
 ?>
