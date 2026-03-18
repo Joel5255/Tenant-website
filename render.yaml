@@ -15,6 +15,7 @@ services:
     name: financial-literacy-db
     runtime: postgres
     plan: free
+    startCommand: "docker-entrypoint.sh postgres"
     envVars:
       - key: POSTGRES_USER
         value: financial_user
