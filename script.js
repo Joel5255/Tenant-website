@@ -178,12 +178,18 @@ function handleSignup(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Show success message
-            showNotification('Account created successfully! Please login to continue.');
+            // Save user data from API response
+            currentUser = data.user;
+            localStorage.setItem('currentUser', JSON.stringify(data.user));
             
-            // Switch to login screen
+            isAuthenticated = true;
+            
+            // Show success message
+            showNotification('Account created successfully! Welcome to Financial Literacy.');
+            
+            // Show authenticated app directly
             setTimeout(() => {
-                showLoginScreen();
+                showAuthenticatedApp();
             }, 1500);
         } else {
             showNotification(data.error || 'Registration failed', 'error');
