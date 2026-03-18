@@ -1,0 +1,25 @@
+services:
+  # PHP Web Service
+  - type: web
+    name: financial-literacy-app
+    runtime: php
+    plan: free
+    buildCommand: "composer install --no-dev"
+    startCommand: "php -S 0.0.0.0:$PORT -t ."
+    envVars:
+      - key: PORT
+        value: 10000
+    healthCheckPath: /index.html
+
+  # PostgreSQL Database
+  - type: pserv
+    name: financial-literacy-db
+    runtime: postgres
+    plan: free
+    envVars:
+      - key: POSTGRES_USER
+        value: financial_user
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+      - key: POSTGRES_DB
+        value: financial_literacy

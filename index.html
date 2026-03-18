@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Financial Literacy System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Login Screen -->
+            <div id="login-screen" class="screen active">
+                <div class="login-card">
+                    <div class="login-header">
+                        <div class="app-logo">
+                            <div class="logo-icon">💰</div>
+                        </div>
+                        <h1 class="app-name">Student Financial Literacy System</h1>
+                        <p class="app-description">Track your spending and improve financial habits.</p>
+                    </div>
+
+                    <form class="login-form" id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Email / Username</label>
+                            <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="login-btn">Login</button>
+                            <button type="button" class="register-btn" onclick="showSignupScreen()">Register</button>
+                        </div>
+                        
+                        <div class="form-footer">
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Signup Screen -->
+            <div id="signup-screen" class="screen">
+                <div class="login-container">
+                    <div class="login-header">
+                        <div class="logo">
+                            <div class="logo-icon">💰</div>
+                            <h1>Create Account</h1>
+                        </div>
+                        <p class="login-subtitle">Join thousands learning financial literacy</p>
+                    </div>
+
+                    <form class="login-form" id="signupForm">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email Address</label>
+                            <input type="email" id="signup-email" name="signup-email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" name="signup-password" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the Terms of Service and Privacy Policy
+                            </label>
+                        </div>
+                        <button type="submit" class="login-btn">Create Account</button>
+                    </form>
+
+                    <div class="signup-link">
+                        <p>Already have an account? <a href="#" id="showLogin">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen">
+                <div class="welcome-section">
+                    <h1>Welcome back, Alex!</h1>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-content">
+                            <div class="stat-value">$2,450</div>
+                            <div class="stat-label">Total Saved</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-content">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Quizzes Passed</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-value">85%</div>
+                            <div class="stat-label">Avg Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="showScreen('quiz-screen')">
+                            <span class="btn-icon">📝</span>
+                            <span>Take Quiz</span>
+                        </button>
+                        <button class="action-btn" onclick="showScreen('expense-screen')">
+                            <span class="btn-icon">📊</span>
+                            <span>Log Expense</span>
+                        </button>
+                        <button class="action-btn" onclick="showScreen('report-screen')">
+                            <span class="btn-icon">📈</span>
+                            <span>View Report</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">🏆</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Quiz Completed</div>
+                                <div class="activity-desc">Budgeting Basics - 90%</div>
+                            </div>
+                            <div class="activity-time">2h ago</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">💸</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Expense Logged</div>
+                                <div class="activity-desc">Lunch - $12.50</div>
+                            </div>
+                            <div class="activity-time">5h ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="screen">
+                <div class="quiz-container">
+                    <h1>Financial Literacy Quiz</h1>
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                        <span>Question 2 of 5</span>
+                    </div>
+                    
+                    <div class="question-card">
+                        <h3>What is the recommended percentage of income to save?</h3>
+                        <div class="answer-options">
+                            <button class="answer-btn">10%</button>
+                            <button class="answer-btn">20%</button>
+                            <button class="answer-btn">30%</button>
+                            <button class="answer-btn">40%</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-navigation">
+                        <button class="nav-btn secondary">Previous</button>
+                        <button class="nav-btn primary">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expense Screen -->
+            <div id="expense-screen" class="screen">
+                <div class="expense-container">
+                    <h1>Log Expense</h1>
+                    
+                    <!-- Daily Spending Target Section -->
+                    <div class="daily-target-section">
+                        <h2>Daily Spending Target</h2>
+                        <div class="target-input-group">
+                            <label for="daily-target">Set Your Daily Target:</label>
+                            <div class="target-input-wrapper">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="daily-target" placeholder="50.00" step="0.01" min="0">
+                            </div>
+                            <button type="button" class="set-target-btn" onclick="setDailyTarget()">Set Target</button>
+                        </div>
+                        
+                        <!-- Spending Controls -->
+                        <div class="spending-controls" id="spending-controls" style="display: none;">
+                            <h3>Spending Controls</h3>
+                            <div class="control-options">
+                                <label class="control-option">
+                                    <input type="checkbox" id="spending-lock" onchange="toggleSpendingLock()">
+                                    <span class="control-label">Lock spending when target reached</span>
+                                </label>
+                                <label class="control-option">
+                                    <input type="checkbox" id="cooldown-period" onchange="toggleCooldown()">
+                                    <span class="control-label">30-minute cooldown between transactions</span>
+                                </label>
+                                <label class="control-option">
+                                    <input type="checkbox" id="emergency-override" onchange="toggleEmergencyOverride()">
+                                    <span class="control-label">Allow emergency override (requires confirmation)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="spending-progress" id="spending-progress" style="display: none;">
+                            <div class="progress-header">
+                                <span>Today's Spending</span>
+                                <span id="progress-text">$0.00 / $0.00</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="daily-progress-fill"></div>
+                            </div>
+                            <div class="progress-status" id="progress-status">On Track</div>
+                        </div>
+                    </div>
+                    
+                    <form class="expense-form" id="expenseForm">
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" id="amount" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category">
+                                <option>Food</option>
+                                <option>Transportation</option>
+                                <option>Entertainment</option>
+                                <option>Shopping</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date">
+                        </div>
+                        <button type="submit" class="submit-btn">Add Expense</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Report Screen -->
+            <div id="report-screen" class="screen">
+                <div class="report-container">
+                    <h1>Spending Report</h1>
+                    <div class="report-period">
+                        <select>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="total-spending">
+                        <h2>Total Spending</h2>
+                        <div class="amount">$156.75</div>
+                    </div>
+
+                    <div class="spending-chart">
+                        <h3>Spending by Category</h3>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar" style="height: 60%">
+                                <span>Food</span>
+                            </div>
+                            <div class="chart-bar" style="height: 30%">
+                                <span>Transport</span>
+                            </div>
+                            <div class="chart-bar" style="height: 45%">
+                                <span>Shopping</span>
+                            </div>
+                            <div class="chart-bar" style="height: 20%">
+                                <span>Other</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expense-list">
+                        <h3>Recent Expenses</h3>
+                        <div class="expense-item">
+                            <div class="expense-info">
+                                <div class="expense-title">Grocery Store</div>
+                                <div class="expense-date">Today</div>
+                            </div>
+                            <div class="expense-amount">-$45.20</div>
+                        </div>
+                        <div class="expense-item">
+                            <div class="expense-info">
+                                <div class="expense-title">Gas Station</div>
+                                <div class="expense-date">Yesterday</div>
+                            </div>
+                            <div class="expense-amount">-$35.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div id="profile-screen" class="screen">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👤</div>
+                        <h1>Alex Johnson</h1>
+                        <p>alex.johnson@email.com</p>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Days Streak</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">Level 3</div>
+                            <div class="stat-label">Current Level</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">450</div>
+                            <div class="stat-label">Points</div>
+                        </div>
+                    </div>
+
+                    <div class="achievements">
+                        <h2>Achievements</h2>
+                        <div class="achievement-grid">
+                            <div class="achievement-badge">🏆</div>
+                            <div class="achievement-badge">🌟</div>
+                            <div class="achievement-badge">🎯</div>
+                            <div class="achievement-badge">💎</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="profile-btn">Settings</button>
+                        <button class="profile-btn">Help</button>
+                        <button class="profile-btn logout" onclick="handleLogout()">Log Out</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Navigation -->
+        <footer class="footer">
+            <nav class="nav-menu">
+                <button class="nav-item active" onclick="showScreen('home-screen')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Home</span>
+                </button>
+                <button class="nav-item" onclick="showScreen('expense-screen')">
+                    <span class="nav-icon">💳</span>
+                    <span class="nav-label">Expenses</span>
+                </button>
+                <button class="nav-item" onclick="showScreen('quiz-screen')">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-label">Quiz</span>
+                </button>
+                <button class="nav-item" onclick="showScreen('report-screen')">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Report</span>
+                </button>
+                <button class="nav-item" onclick="showScreen('profile-screen')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Profile</span>
+                </button>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- Spending Lock Modal -->
+    <div id="spending-lock-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="lock-icon">🔒</div>
+                <h2>Spending Locked</h2>
+            </div>
+            <div class="modal-body">
+                <p>You've reached your daily spending target of <strong id="lock-target-amount">$0.00</strong></p>
+                <p id="lock-message">To help you stay within budget, spending has been locked until tomorrow.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="emergency-btn" id="emergency-override-btn" onclick="showEmergencyConfirmation()" style="display: none;">
+                    Emergency Override
+                </button>
+                <button class="close-btn" onclick="closeSpendingLock()">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Confirmation Modal -->
+    <div id="emergency-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="warning-icon">⚠️</div>
+                <h2>Emergency Override</h2>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to override your spending limit?</p>
+                <p>This is for <strong>emergencies only</strong> and will be recorded.</p>
+                <div class="emergency-reason">
+                    <label for="emergency-reason">Please state the emergency reason:</label>
+                    <textarea id="emergency-reason" placeholder="e.g., Medical emergency, Essential transport, etc."></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closeEmergencyModal()">Cancel</button>
+                <button class="confirm-emergency-btn" onclick="confirmEmergencyOverride()">Confirm Emergency</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
