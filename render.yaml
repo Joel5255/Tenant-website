@@ -1,24 +1,13 @@
 services:
-  # PHP Web Service
   - type: web
-    name: financial-literacy-app
-    runtime: docker
+    name: financial-literacy-website
+    env: php
     plan: free
-    dockerfilePath: ./Dockerfile
+    repo: https://github.com/Joel5255/Tenant-website.git
+    rootDir: .
+    buildCommand: "composer install --no-dev"
+    startCommand: "php -S 0.0.0.0:$PORT -t ."
     envVars:
       - key: PORT
         value: 10000
     healthCheckPath: /index.html
-
-  # PostgreSQL Database
-  - type: pserv
-    name: financial-literacy-db
-    plan: free
-    startCommand: "docker-entrypoint.sh postgres"
-    envVars:
-      - key: POSTGRES_USER
-        value: financial_user
-      - key: POSTGRES_PASSWORD
-        generateValue: true
-      - key: POSTGRES_DB
-        value: financial_literacy
