@@ -4,6 +4,7 @@ require_once 'config.php';
 
 try {
     $conn = DatabaseConfig::getConnection();
+    echo "✓ Database connection successful!\n";
     
     // Create users table
     $conn->exec("
@@ -15,6 +16,7 @@ try {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ");
+    echo "✓ Users table created!\n";
     
     // Create transactions table
     $conn->exec("
@@ -28,6 +30,7 @@ try {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ");
+    echo "✓ Transactions table created!\n";
     
     // Create budgets table
     $conn->exec("
@@ -41,10 +44,12 @@ try {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ");
+    echo "✓ Budgets table created!\n";
     
-    echo "✓ Database tables created successfully!\n";
+    echo "✓ All database tables created successfully!\n";
     
 } catch (Exception $e) {
     echo "✗ Error setting up database: " . $e->getMessage() . "\n";
+    echo "✗ Connection failed!\n";
 }
 ?>
