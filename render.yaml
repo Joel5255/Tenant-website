@@ -13,7 +13,6 @@ services:
   # PostgreSQL Database
   - type: pserv
     name: financial-literacy-db
-    runtime: postgres
     plan: free
     startCommand: "docker-entrypoint.sh postgres"
     envVars:
