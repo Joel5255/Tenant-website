@@ -2,12 +2,12 @@
 // Database configuration for Render.com
 class DatabaseConfig {
     public static function getConnection() {
-        // Render.com PostgreSQL connection
-        $host = getenv("POSTGRES_HOST") ?: "localhost";
-        $port = getenv("POSTGRES_PORT") ?: "5432";
-        $database = getenv("POSTGRES_DB") ?: "financial_literacy";
-        $user = getenv("POSTGRES_USER") ?: "financial_user";
-        $password = getenv("POSTGRES_PASSWORD") ?: "";
+        // Render.com PostgreSQL connection (hardcoded for testing)
+        $host = "dpg-d6t6h424d50c73c3vuqg-a.oregon-postgres.render.com";
+        $port = "5432";
+        $database = "financial_literacy_db";
+        $user = "financial_literacy_db_zttd_user";
+        $password = "giEKI5L0bq3P2qzX1hvYm56nU58MefRc"; // Extracted password from connection string
         
         try {
             // PostgreSQL connection
