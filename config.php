@@ -3,7 +3,6 @@
 class DatabaseConfig {
     public static function getConnection() {
         // Supabase PostgreSQL connection for website
-        // Replace these with your actual Supabase credentials
         $host = "db.vcgmqckgxbpjwfdxgwbt.supabase.co";
         $port = "5432";
         $database = "postgres";
@@ -23,23 +22,9 @@ class DatabaseConfig {
             );
             return $conn;
         } catch(PDOException $e) {
-            // Fallback to MySQL for local development
-            return self::getMySQLConnection();
+            throw new Exception("Database connection failed: " . $e->getMessage());
         }
-    }
-    
-    private static function getMySQLConnection() {
-        // Local MySQL connection (for development)
-        $host = "localhost";
-        $user = "root";
-        $password = "";
-        $database = "financial_literacy";
-        
-        $conn = new mysqli($host, $user, $password, $database);
-        if ($conn->connect_error) {
-            throw new Exception("Database connection failed: " . $conn->connect_error);
-        }
-        return $conn;
     }
 }
+?>
 ?>
