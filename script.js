@@ -95,30 +95,45 @@ function handleLogin(event) {
     const password = document.getElementById('password').value;
     const remember = document.getElementById('remember').checked;
     
-    // Simple validation (in real app, this would be server-side)
+    // Simple validation
     if (email && password) {
-        // Create user object (in real app, this would come from server)
-        const user = {
-            name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-            email: email,
-            id: Date.now()
-        };
-        
-        // Save user data
-        currentUser = user;
-        if (remember) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        
-        isAuthenticated = true;
-        
-        // Show success message
-        showNotification('Login successful! Welcome back.');
-        
-        // Show authenticated app
-        setTimeout(() => {
-            showAuthenticatedApp();
-        }, 1000);
+        // Call login API
+        fetch('/api/login.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Save user data from API response
+                currentUser = data.user;
+                if (remember) {
+                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+                }
+                
+                isAuthenticated = true;
+                
+                // Show success message
+                showNotification('Login successful! Welcome back.');
+                
+                // Show authenticated app
+                setTimeout(() => {
+                    showAuthenticatedApp();
+                }, 1000);
+            } else {
+                showNotification(data.error || 'Login failed', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            showNotification('Login failed. Please try again.', 'error');
+        });
     }
 }
 
@@ -148,26 +163,36 @@ function handleSignup(event) {
         return;
     }
     
-    // Create user object
-    const user = {
-        name: fullname,
-        email: email,
-        id: Date.now()
-    };
-    
-    // Save user data
-    currentUser = user;
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    
-    isAuthenticated = true;
-    
-    // Show success message
-    showNotification('Account created successfully! Welcome to Financial Literacy.');
-    
-    // Show authenticated app
-    setTimeout(() => {
-        showAuthenticatedApp();
-    }, 1500);
+    // Call registration API
+    fetch('/api/register.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: fullname,
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification('Account created successfully! Please login to continue.');
+            
+            // Switch to login screen
+            setTimeout(() => {
+                showLoginScreen();
+            }, 1500);
+        } else {
+            showNotification(data.error || 'Registration failed', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Registration error:', error);
+        showNotification('Registration failed. Please try again.', 'error');
+    });
 }
 
 // Handle logout
