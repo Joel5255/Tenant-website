@@ -7,13 +7,19 @@ class DatabaseConfig {
         $port = "5432";
         $database = "financial_literacy_db";
         $user = "financial_literacy_db_zttd_user";
-        $password = "giEKI5L0bq3P2qzX1hvYm56nU58MefRc"; // Extracted password from connection string
+        $password = "giEKI5L0bq3P2qzX1hvYm56nU58MefRc";
         
         try {
-            // PostgreSQL connection
-            $dsn = "pgsql:host=$host;port=$port;dbname=$database";
-            $conn = new PDO($dsn, $user, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // PostgreSQL connection with explicit parameters
+            $conn = new PDO(
+                "pgsql:host=$host;port=$port;dbname=$database",
+                $user,
+                $password,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ]
+            );
             return $conn;
         } catch(PDOException $e) {
             // Fallback to MySQL for local development
