@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-btn { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 10px; }
+        .result { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h2>🧪 Login API Test</h2>
+    
+    <button class="test-btn" onclick="testLogin()">Test Login with Test User</button>
+    <button class="test-btn" onclick="testLogin2()">Test Login with Your User</button>
+    
+    <div id="result" class="result"></div>
+    
+    <script>
+        function testLogin() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing login with test@example.com...';
+            
+            fetch('/api/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: 'test@example.com',
+                    password: 'password123'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultDiv.innerHTML = '<h3>Result:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+                if (data.success) {
+                    resultDiv.innerHTML += '<p style="color: green;">✅ Login successful!</p>';
+                } else {
+                    resultDiv.innerHTML += '<p style="color: red;">❌ Login failed: ' + (data.error || 'Unknown error') + '</p>';
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = '<p style="color: red;">❌ Network error: ' + error.message + '</p>';
+            });
+        }
+        
+        function testLogin2() {
+            const email = prompt('Enter your email:');
+            const password = prompt('Enter your password:');
+            
+            if (!email || !password) return;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `Testing login with ${email}...`;
+            
+            fetch('/api/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultDiv.innerHTML = '<h3>Result:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+                if (data.success) {
+                    resultDiv.innerHTML += '<p style="color: green;">✅ Login successful!</p>';
+                } else {
+                    resultDiv.innerHTML += '<p style="color: red;">❌ Login failed: ' + (data.error || 'Unknown error') + '</p>';
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = '<p style="color: red;">❌ Network error: ' + error.message + '</p>';
+            });
+        }
+    </script>
+</body>
+</html>
