@@ -910,15 +910,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Login form event listener
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
+    const loginButton = document.querySelector('.login-btn');
+    if (loginButton) {
+        loginButton.addEventListener('click', handleLogin);
+        console.log('Login button event listener attached');
+    } else {
+        console.error('Login button not found');
     }
     
     // Signup form event listener
-    const signupForm = document.getElementById('signupForm');
-    if (signupForm) {
-        signupForm.addEventListener('submit', handleSignup);
+    const signupButton = document.querySelector('#signupForm .login-btn');
+    if (signupButton) {
+        signupButton.addEventListener('click', handleSignup);
+        console.log('Signup button event listener attached');
+    } else {
+        console.error('Signup button not found');
+    }
+    
+    // Register button event listener
+    const registerButton = document.querySelector('.register-btn');
+    if (registerButton) {
+        registerButton.addEventListener('click', showSignupScreen);
+        console.log('Register button event listener attached');
+    } else {
+        console.error('Register button not found');
     }
     
     // Show signup link
