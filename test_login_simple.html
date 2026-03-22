@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Test</title>
+    <script src="script.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-btn { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 10px; }
+        .debug-info { background: #f8f9fa; padding: 10px; margin: 10px 0; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h2>🧪 Login Test Page</h2>
+    
+    <div class="debug-info" id="debug-info">
+        <h3>Debug Information:</h3>
+        <div id="event-listeners">Checking event listeners...</div>
+        <div id="login-test"></div>
+        <div id="api-response"></div>
+    </div>
+    
+    <button class="test-btn" onclick="testEventListeners()">Check Event Listeners</button>
+    <button class="test-btn" onclick="testLogin()">Test Login</button>
+    <button class="test-btn" onclick="goToMainSite()">Go to Main Site</button>
+    
+    <script>
+        function testEventListeners() {
+            const debugDiv = document.getElementById('event-listeners');
+            debugDiv.innerHTML = '<h4>Event Listeners:</h4>';
+            
+            const loginButton = document.querySelector('.login-btn');
+            if (loginButton) {
+                debugDiv.innerHTML += '<p class="success">✅ Login button found</p>';
+            } else {
+                debugDiv.innerHTML += '<p class="error">❌ Login button not found</p>';
+            }
+            
+            const registerButton = document.querySelector('.register-btn');
+            if (registerButton) {
+                debugDiv.innerHTML += '<p class="success">✅ Register button found</p>';
+            } else {
+                debugDiv.innerHTML += '<p class="error">❌ Register button not found</p>';
+            }
+            
+            debugDiv.innerHTML += '<p class="success">✅ JavaScript functions loaded</p>';
+        }
+        
+        function testLogin() {
+            const debugDiv = document.getElementById('login-test');
+            debugDiv.innerHTML = '<h4>Testing Login:</h4>';
+            
+            // Set test values
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            
+            if (emailInput && passwordInput) {
+                emailInput.value = 'test@example.com';
+                passwordInput.value = 'password123';
+                debugDiv.innerHTML += '<p class="success">✅ Test credentials set</p>';
+            } else {
+                debugDiv.innerHTML += '<p class="error">❌ Login inputs not found</p>';
+                return;
+            }
+            
+            // Call login function
+            if (typeof handleLogin === 'function') {
+                debugDiv.innerHTML += '<p class="success">✅ Calling handleLogin()...</p>';
+                handleLogin();
+            } else {
+                debugDiv.innerHTML += '<p class="error">❌ handleLogin() function not found</p>';
+            }
+        }
+        
+        function goToMainSite() {
+            window.location.href = '/';
+        }
+        
+        // Override showNotification to show on page
+        function showNotification(message, type) {
+            const debugDiv = document.getElementById('api-response');
+            debugDiv.innerHTML = '<h4>Notification:</h4>';
+            debugDiv.innerHTML += '<p class="' + (type === 'error' ? 'error' : 'success') + '">' + message + '</p>';
+        }
+        
+        // Check on page load
+        window.onload = function() {
+            testEventListeners();
+        };
+    </script>
+</body>
+</html>
