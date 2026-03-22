@@ -110,7 +110,9 @@ function handleLogin(event) {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
+            console.log('Login response:', data); // Debug log
+            
+            if (data.success && data.user) {
                 // Save user data from API response
                 currentUser = data.user;
                 if (remember) {
@@ -127,6 +129,7 @@ function handleLogin(event) {
                     showAuthenticatedApp();
                 }, 1000);
             } else {
+                console.error('Login failed:', data.error); // Debug log
                 showNotification(data.error || 'Login failed', 'error');
             }
         })
