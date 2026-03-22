@@ -88,9 +88,7 @@ function updateUserInfo() {
 }
 
 // Handle login form submission
-function handleLogin(event) {
-    event.preventDefault();
-    
+function handleLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const remember = document.getElementById('remember').checked;
@@ -141,9 +139,7 @@ function handleLogin(event) {
 }
 
 // Handle signup form submission
-function handleSignup(event) {
-    event.preventDefault();
-    
+function handleSignup() {
     const fullname = document.getElementById('fullname').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
