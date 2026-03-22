@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Debug</title>
+    <script src="script.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .debug-btn { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 10px; }
+        .result { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+        .form-group { margin: 10px 0; }
+        input { padding: 5px; width: 200px; }
+    </style>
+</head>
+<body>
+    <h2>🔍 Login Debug Test</h2>
+    
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="text" id="debug-email" value="test@example.com">
+    </div>
+    <div class="form-group">
+        <label>Password:</label>
+        <input type="password" id="debug-password" value="password123">
+    </div>
+    <div class="form-group">
+        <label>Remember:</label>
+        <input type="checkbox" id="debug-remember">
+    </div>
+    
+    <button class="debug-btn" onclick="debugLogin()">Debug Login Process</button>
+    <button class="debug-btn" onclick="debugLoginWithCustom()">Use Custom Details</button>
+    
+    <div id="debug-result" class="result"></div>
+    
+    <script>
+        function debugLogin() {
+            const email = document.getElementById('debug-email').value;
+            const password = document.getElementById('debug-password').value;
+            const remember = document.getElementById('debug-remember').checked;
+            
+            const resultDiv = document.getElementById('debug-result');
+            resultDiv.innerHTML = '<h3>🔍 Debugging Login Process...</h3>';
+            resultDiv.innerHTML += '<p><strong>Email:</strong> ' + email + '</p>';
+            resultDiv.innerHTML += '<p><strong>Password:</strong> ' + password + '</p>';
+            resultDiv.innerHTML += '<p><strong>Remember:</strong> ' + remember + '</p>';
+            
+            // Test if functions exist
+            resultDiv.innerHTML += '<h4>Testing Functions:</h4>';
+            resultDiv.innerHTML += '<p>handleLogin exists: ' + (typeof handleLogin === 'function' ? '✅ YES' : '❌ NO') + '</p>';
+            resultDiv.innerHTML += '<p>showNotification exists: ' + (typeof showNotification === 'function' ? '✅ YES' : '❌ NO') + '</p>';
+            
+            // Call handleLogin with test data
+            if (typeof handleLogin === 'function') {
+                resultDiv.innerHTML += '<h4>Calling handleLogin()...</h4>';
+                
+                // Set values to main form
+                document.getElementById('email').value = email;
+                document.getElementById('password').value = password;
+                document.getElementById('remember').checked = remember;
+                
+                // Call login function
+                handleLogin();
+                
+                resultDiv.innerHTML += '<p style="color: green;">✅ handleLogin() called</p>';
+            } else {
+                resultDiv.innerHTML += '<p style="color: red;">❌ handleLogin() function not found</p>';
+            }
+        }
+        
+        function debugLoginWithCustom() {
+            const email = prompt('Enter your email:');
+            const password = prompt('Enter your password:');
+            
+            if (email && password) {
+                document.getElementById('debug-email').value = email;
+                document.getElementById('debug-password').value = password;
+                debugLogin();
+            }
+        }
+    </script>
+</body>
+</html>
