@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+    <script src="script.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-btn { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h2>🧪 Test Button Functions</h2>
+    
+    <button class="test-btn" onclick="handleLogin()">Test handleLogin()</button>
+    <button class="test-btn" onclick="showSignupScreen()">Test showSignupScreen()</button>
+    <button class="test-btn" onclick="handleSignup()">Test handleSignup()</button>
+    <button class="test-btn" onclick="showLoginScreen()">Test showLoginScreen()</button>
+    
+    <div id="result" style="margin: 20px 0; padding: 10px; border: 1px solid #ddd;"></div>
+    
+    <script>
+        // Override showNotification to show results
+        function showNotification(message, type) {
+            document.getElementById('result').innerHTML += 
+                '<p style="color: ' + (type === 'error' ? 'red' : 'green') + ';">' + message + '</p>';
+        }
+    </script>
+</body>
+</html>
