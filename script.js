@@ -910,7 +910,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Login form event listener
-    const loginButton = document.querySelector('.login-btn');
+    const loginButton = document.querySelector('#login-screen .login-btn');
     if (loginButton) {
         loginButton.addEventListener('click', handleLogin);
         console.log('Login button event listener attached');
@@ -925,15 +925,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Signup button event listener attached');
     } else {
         console.error('Signup button not found');
-    }
-    
-    // Register button event listener
-    const registerButton = document.querySelector('.register-btn');
-    if (registerButton) {
-        registerButton.addEventListener('click', showSignupScreen);
-        console.log('Register button event listener attached');
-    } else {
-        console.error('Register button not found');
     }
     
     // Show signup link
