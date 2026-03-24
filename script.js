@@ -945,6 +945,54 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // M-Pesa functionality
+    loadMpesaData();
+    
+    // Handle M-Pesa transaction form
+    const transactionForm = document.getElementById('transactionForm');
+    if (transactionForm) {
+        transactionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const user = getCurrentUser();
+            if (!user) {
+                showNotification('Please login first', 'error');
+                return;
+            }
+            
+            const amount = document.getElementById('mpesaAmount').value;
+            const phoneNumber = document.getElementById('mpesaPhone').value;
+            
+            fetch('/api/mpesa.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'simulate_transaction',
+                    user_id: user.id,
+                    amount: amount,
+                    phone_number: phoneNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Transaction simulated successfully!');
+                    transactionForm.reset();
+                    loadTransactions();
+                    loadDailyTarget();
+                } else {
+                    showNotification('Transaction failed: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Transaction failed', 'error');
+            });
+        });
+    }
+    
     // Social login buttons (placeholder functionality)
     const socialButtons = document.querySelectorAll('.social-btn');
     socialButtons.forEach(button => {
@@ -959,45 +1007,125 @@ document.addEventListener('DOMContentLoaded', function() {
     if (forgotPasswordLink) {
         forgotPasswordLink.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Password reset functionality coming soon!', 'info');
+            showNotification('Password reset coming soon!', 'info');
         });
     }
+});
+
+// M-Pesa Functions
+function loadMpesaData() {
+    loadDailyTarget();
+    loadTransactions();
+}
+
+function loadDailyTarget() {
+    const user = getCurrentUser();
+    if (!user) {
+        document.getElementById('targetContent').innerHTML = '<p>Please login to view targets</p>';
+        return;
+    }
     
-    // Add event listeners for quiz answers
-    const answerButtons = document.querySelectorAll('.answer-btn');
-    answerButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            selectAnswer(this);
+    fetch('/api/mpesa.php?action=daily_target&user_id=' + user.id)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.target) {
+                const target = data.target;
+                const percentage = (target.current_spent / target.target_amount) * 100;
+                
+                let alertHtml = '';
+                if (percentage >= 100) {
+                    alertHtml = '<div class="alert-warning">⚠️ Daily target reached! SMS alert sent.</div>';
+                }
+                
+                document.getElementById('targetContent').innerHTML = `
+                    ${alertHtml}
+                    <p><strong>Target:</strong> KES ${target.target_amount}</p>
+                    <p><strong>Spent:</strong> KES ${target.current_spent}</p>
+                    <p><strong>Progress:</strong> ${percentage.toFixed(1)}%</p>
+                    <div class="target-progress">
+                        <div class="target-progress-bar" style="width: ${Math.min(percentage, 100)}%"></div>
+                    </div>
+                `;
+            } else {
+                createDefaultTarget();
+            }
+        })
+        .catch(error => {
+            console.error('Error loading target:', error);
+            document.getElementById('targetContent').innerHTML = '<p>Error loading target</p>';
         });
+}
+
+function createDefaultTarget() {
+    const user = getCurrentUser();
+    if (!user) return;
+    
+    fetch('/api/mpesa.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            action: 'create_target',
+            user_id: user.id,
+            target_amount: 1000
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        loadDailyTarget();
+    });
+}
+
+function loadTransactions() {
+    const user = getCurrentUser();
+    if (!user) {
+        document.getElementById('transactionList').innerHTML = '<p>Please login to view transactions</p>';
+        return;
+    }
+    
+    fetch('/api/mpesa.php?action=transactions&user_id=' + user.id)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayTransactions(data.transactions);
+            } else {
+                document.getElementById('transactionList').innerHTML = '<p>Error loading transactions</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading transactions:', error);
+            document.getElementById('transactionList').innerHTML = '<p>Error loading transactions</p>';
+        });
+}
+
+function displayTransactions(transactions) {
+    const listDiv = document.getElementById('transactionList');
+    
+    if (transactions.length === 0) {
+        listDiv.innerHTML = '<p>No transactions yet</p>';
+        return;
+    }
+    
+    let html = '';
+    transactions.forEach(transaction => {
+        const date = new Date(transaction.transaction_time);
+        const timeStr = date.toLocaleString();
+        
+        html += `
+            <div class="transaction-item">
+                <div>
+                    <div><strong>${transaction.transaction_type}</strong></div>
+                    <div style="font-size: 12px; color: #666;">${timeStr}</div>
+                    <div style="font-size: 12px; color: #666;">${transaction.phone_number}</div>
+                </div>
+                <div class="amount">KES ${transaction.amount}</div>
+            </div>
+        `;
     });
     
-    // Add event listeners for quiz navigation
-    const nextBtn = document.querySelector('.nav-btn.primary');
-    const prevBtn = document.querySelector('.nav-btn.secondary');
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', nextQuestion);
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', previousQuestion);
-    }
-    
-    // Add event listener for expense form
-    const expenseForm = document.querySelector('.expense-form');
-    if (expenseForm) {
-        expenseForm.addEventListener('submit', handleExpenseSubmit);
-    }
-    
-    // Update daily spending status on home screen when authenticated
-    if (isAuthenticated && dailyTarget > 0) {
-        updateDailySpendingStatus();
-    }
-    
-    // Update time display functionality removed
-    // updateTime();
-    // setInterval(updateTime, 60000); // Update every minute
-});
+    listDiv.innerHTML = html;
+}
 
 // Update time display (removed since header was removed)
 function updateTime() {

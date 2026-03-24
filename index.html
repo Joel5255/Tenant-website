@@ -129,6 +129,10 @@
                             <span class="btn-icon">📊</span>
                             <span>Log Expense</span>
                         </button>
+                        <button class="action-btn" onclick="showScreen('mpesa-screen')">
+                            <span class="btn-icon">💰</span>
+                            <span>M-Pesa</span>
+                        </button>
                         <button class="action-btn" onclick="showScreen('report-screen')">
                             <span class="btn-icon">📈</span>
                             <span>View Report</span>
@@ -422,6 +426,43 @@
             <div class="modal-actions">
                 <button class="cancel-btn" onclick="closeEmergencyModal()">Cancel</button>
                 <button class="confirm-emergency-btn" onclick="confirmEmergencyOverride()">Confirm Emergency</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- M-Pesa Screen -->
+    <div id="mpesa-screen" class="screen">
+        <div class="mpesa-container">
+            <h2>💰 M-Pesa Transactions & Daily Targets</h2>
+            
+            <!-- Daily Target Info -->
+            <div class="target-info" id="targetInfo">
+                <h3>Today's Target</h3>
+                <div id="targetContent">Loading...</div>
+            </div>
+            
+            <!-- Transaction Form -->
+            <div class="transaction-form">
+                <h3>Simulate M-Pesa Transaction</h3>
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label for="mpesaAmount">Amount (KES)</label>
+                        <input type="number" id="mpesaAmount" name="amount" placeholder="Enter amount" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="mpesaPhone">Phone Number</label>
+                        <input type="text" id="mpesaPhone" name="phoneNumber" placeholder="2547XXXXXXXX" required>
+                    </div>
+                    <button type="submit" class="login-btn">Simulate Transaction</button>
+                </form>
+            </div>
+            
+            <!-- Transaction List -->
+            <div class="transaction-list">
+                <h3>Recent Transactions</h3>
+                <div id="transactionList">
+                    <p>Loading transactions...</p>
+                </div>
             </div>
         </div>
     </div>

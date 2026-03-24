@@ -1498,6 +1498,76 @@ body {
     border-radius: 3px;
 }
 
+/* M-Pesa Styles */
+.mpesa-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.transaction-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.transaction-list {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.transaction-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.amount {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.target-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.target-progress {
+    background: #e9ecef;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.target-progress-bar {
+    background: #007bff;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
 .main-content::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
