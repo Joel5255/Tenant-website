@@ -909,43 +909,22 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.valueAsDate = new Date();
     }
     
-    // Login form event listener
-    const loginButton = document.querySelector('#login-screen .login-btn');
-    if (loginButton) {
-        loginButton.addEventListener('click', handleLogin);
-        console.log('Login button event listener attached');
-    } else {
-        console.error('Login button not found');
+    // Button event listeners
+    const loginBtn = document.querySelector('#login-screen .login-btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', handleLogin);
     }
     
-    // Signup form event listener
-    const signupButton = document.querySelector('#signup-screen .login-btn');
-    if (signupButton) {
-        signupButton.addEventListener('click', handleSignup);
-        console.log('Signup button event listener attached');
-    } else {
-        console.error('Signup button not found');
+    const registerBtn = document.querySelector('#login-screen .register-btn');
+    if (registerBtn) {
+        registerBtn.addEventListener('click', showSignupScreen);
     }
     
-    // Register button event listener
-    const registerButton = document.querySelector('#login-screen .register-btn');
-    if (registerButton) {
-        registerButton.addEventListener('click', showSignupScreen);
-        console.log('Register button event listener attached');
-    } else {
-        console.error('Register button not found');
+    const createAccountBtn = document.querySelector('#signup-screen .login-btn');
+    if (createAccountBtn) {
+        createAccountBtn.addEventListener('click', handleSignup);
     }
     
-    // Show signup link
-    const showSignupLink = document.getElementById('showSignup');
-    if (showSignupLink) {
-        showSignupLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            showSignupScreen();
-        });
-    }
-    
-    // Show login link
     const showLoginLink = document.getElementById('showLogin');
     if (showLoginLink) {
         showLoginLink.addEventListener('click', function(e) {
