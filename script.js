@@ -91,51 +91,55 @@ function updateUserInfo() {
 function handleLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const remember = document.getElementById('remember').checked;
+    const rememberCheckbox = document.getElementById('remember');
+    const remember = rememberCheckbox ? rememberCheckbox.checked : false;
     
     // Simple validation
-    if (email && password) {
-        // Call login API
-        fetch('/api/login.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Login response:', data); // Debug log
-            
-            if (data.success && data.user) {
-                // Save user data from API response
-                currentUser = data.user;
-                if (remember) {
-                    localStorage.setItem('currentUser', JSON.stringify(data.user));
-                }
-                
-                isAuthenticated = true;
-                
-                // Show success message
-                showNotification('Login successful! Welcome back.');
-                
-                // Show authenticated app
-                setTimeout(() => {
-                    showAuthenticatedApp();
-                }, 1000);
-            } else {
-                console.error('Login failed:', data.error); // Debug log
-                showNotification(data.error || 'Login failed', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Login error:', error);
-            showNotification('Login failed. Please try again.', 'error');
-        });
+    if (!email || !password) {
+        showNotification('Please enter email and password', 'error');
+        return;
     }
+    
+    // Call login API
+    fetch('/api/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Login response:', data);
+        
+        if (data.success && data.user) {
+            // Save user data from API response
+            currentUser = data.user;
+            if (remember) {
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+            }
+            
+            isAuthenticated = true;
+            
+            // Show success message
+            showNotification('Login successful! Welcome back.');
+            
+            // Show authenticated app
+            setTimeout(() => {
+                showAuthenticatedApp();
+            }, 1000);
+        } else {
+            console.error('Login failed:', data.error);
+            showNotification(data.error || 'Login failed', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Login error:', error);
+        showNotification('Login failed. Please try again.', 'error');
+    });
 }
 
 // Handle signup form submission
