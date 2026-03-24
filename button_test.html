@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+    <script src="script.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-btn { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 10px; }
+        .result { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h2>🧪 Button Test</h2>
+    
+    <div class="result" id="test-result">
+        <h3>Testing Buttons...</h3>
+        <div id="button-status">Checking buttons...</div>
+    </div>
+    
+    <button class="test-btn" onclick="testAllButtons()">Test All Buttons</button>
+    <button class="test-btn" onclick="goToMainSite()">Go to Main Site</button>
+    
+    <script>
+        function testAllButtons() {
+            const resultDiv = document.getElementById('test-result');
+            const statusDiv = document.getElementById('button-status');
+            
+            statusDiv.innerHTML = '<h4>Button Status:</h4>';
+            
+            // Test login button
+            const loginButton = document.querySelector('#login-screen .login-btn');
+            if (loginButton) {
+                statusDiv.innerHTML += '<p class="success">✅ Login button found</p>';
+                
+                // Test click
+                try {
+                    loginButton.click();
+                    statusDiv.innerHTML += '<p class="success">✅ Login button clickable</p>';
+                } catch (e) {
+                    statusDiv.innerHTML += '<p class="error">❌ Login button click error: ' + e.message + '</p>';
+                }
+            } else {
+                statusDiv.innerHTML += '<p class="error">❌ Login button not found</p>';
+            }
+            
+            // Test register button
+            const registerButton = document.querySelector('#login-screen .register-btn');
+            if (registerButton) {
+                statusDiv.innerHTML += '<p class="success">✅ Register button found</p>';
+                
+                // Test click
+                try {
+                    registerButton.click();
+                    statusDiv.innerHTML += '<p class="success">✅ Register button clickable</p>';
+                } catch (e) {
+                    statusDiv.innerHTML += '<p class="error">❌ Register button click error: ' + e.message + '</p>';
+                }
+            } else {
+                statusDiv.innerHTML += '<p class="error">❌ Register button not found</p>';
+            }
+            
+            // Test functions
+            statusDiv.innerHTML += '<h4>Function Status:</h4>';
+            statusDiv.innerHTML += '<p>handleLogin: ' + (typeof handleLogin === 'function' ? '✅ YES' : '❌ NO') + '</p>';
+            statusDiv.innerHTML += '<p>showSignupScreen: ' + (typeof showSignupScreen === 'function' ? '✅ YES' : '❌ NO') + '</p>';
+            statusDiv.innerHTML += '<p>handleSignup: ' + (typeof handleSignup === 'function' ? '✅ YES' : '❌ NO') + '</p>';
+        }
+        
+        function goToMainSite() {
+            window.location.href = '/';
+        }
+        
+        // Test on page load
+        window.onload = function() {
+            setTimeout(testAllButtons, 1000);
+        };
+    </script>
+</body>
+</html>

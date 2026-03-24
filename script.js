@@ -919,12 +919,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Signup form event listener
-    const signupButton = document.querySelector('#signupForm .login-btn');
+    const signupButton = document.querySelector('#signup-screen .login-btn');
     if (signupButton) {
         signupButton.addEventListener('click', handleSignup);
         console.log('Signup button event listener attached');
     } else {
         console.error('Signup button not found');
+    }
+    
+    // Register button event listener
+    const registerButton = document.querySelector('#login-screen .register-btn');
+    if (registerButton) {
+        registerButton.addEventListener('click', showSignupScreen);
+        console.log('Register button event listener attached');
+    } else {
+        console.error('Register button not found');
     }
     
     // Show signup link
