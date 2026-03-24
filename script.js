@@ -918,29 +918,35 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.valueAsDate = new Date();
     }
     
-    // Button event listeners
-    const loginBtn = document.querySelector('#login-screen .login-btn');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', handleLogin);
-    }
-    
-    const registerBtn = document.querySelector('#login-screen .register-btn');
-    if (registerBtn) {
-        registerBtn.addEventListener('click', showSignupScreen);
-    }
-    
-    const createAccountBtn = document.querySelector('#signup-screen .login-btn');
-    if (createAccountBtn) {
-        createAccountBtn.addEventListener('click', handleSignup);
-    }
-    
-    const showLoginLink = document.getElementById('showLogin');
-    if (showLoginLink) {
-        showLoginLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            showLoginScreen();
-        });
-    }
+    // Button event listeners - simplified
+    document.addEventListener('DOMContentLoaded', function() {
+        // Login button
+        const loginBtn = document.querySelector('#login-screen .login-btn');
+        if (loginBtn) {
+            loginBtn.onclick = handleLogin;
+        }
+        
+        // Register button
+        const registerBtn = document.querySelector('#login-screen .register-btn');
+        if (registerBtn) {
+            registerBtn.onclick = showSignupScreen;
+        }
+        
+        // Create Account button
+        const createAccountBtn = document.querySelector('#signup-screen .login-btn');
+        if (createAccountBtn) {
+            createAccountBtn.onclick = handleSignup;
+        }
+        
+        // Show login link
+        const showLoginLink = document.getElementById('showLogin');
+        if (showLoginLink) {
+            showLoginLink.onclick = function(e) {
+                e.preventDefault();
+                showLoginScreen();
+            };
+        }
+    });
     
     // M-Pesa functionality
     loadMpesaData();
