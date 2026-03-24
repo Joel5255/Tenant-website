@@ -918,35 +918,52 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.valueAsDate = new Date();
     }
     
-    // Button event listeners - simplified
-    document.addEventListener('DOMContentLoaded', function() {
+    // Button event handlers - completely rewritten
+    function setupButtons() {
         // Login button
         const loginBtn = document.querySelector('#login-screen .login-btn');
         if (loginBtn) {
-            loginBtn.onclick = handleLogin;
+            loginBtn.onclick = function() {
+                console.log('Login button clicked');
+                handleLogin();
+            };
         }
         
         // Register button
         const registerBtn = document.querySelector('#login-screen .register-btn');
         if (registerBtn) {
-            registerBtn.onclick = showSignupScreen;
+            registerBtn.onclick = function() {
+                console.log('Register button clicked');
+                showSignupScreen();
+            };
         }
         
         // Create Account button
         const createAccountBtn = document.querySelector('#signup-screen .login-btn');
         if (createAccountBtn) {
-            createAccountBtn.onclick = handleSignup;
+            createAccountBtn.onclick = function() {
+                console.log('Create Account button clicked');
+                handleSignup();
+            };
         }
         
         // Show login link
         const showLoginLink = document.getElementById('showLogin');
         if (showLoginLink) {
             showLoginLink.onclick = function(e) {
+                console.log('Show login link clicked');
                 e.preventDefault();
                 showLoginScreen();
             };
         }
-    });
+    }
+    
+    // Setup buttons when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupButtons);
+    } else {
+        setupButtons();
+    }
     
     // M-Pesa functionality
     loadMpesaData();
