@@ -235,9 +235,14 @@ function showScreen(screenId) {
     });
     
     // Show the selected screen
-    const selectedScreen = document.getElementById(screenId);
-    if (selectedScreen) {
-        selectedScreen.classList.add('active');
+    const targetScreen = document.getElementById(screenId);
+    if (targetScreen) {
+        targetScreen.classList.add('active');
+        
+        // Load profile data when profile screen is shown
+        if (screenId === 'profile-screen') {
+            loadProfileData();
+        }
     }
     
     // Update navigation active state
@@ -1117,6 +1122,83 @@ function displayTransactions(transactions) {
     });
     
     listDiv.innerHTML = html;
+}
+
+// Profile functions
+function updateProfile() {
+    const user = getCurrentUser();
+    if (!user) {
+        showNotification('Please login first', 'error');
+        return;
+    }
+    
+    const phoneNumber = document.getElementById('profile-phone').value;
+    
+    if (!phoneNumber) {
+        showNotification('Please enter phone number', 'error');
+        return;
+    }
+    
+    fetch('/api/update_profile.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id: user.id,
+            phone_number: phoneNumber
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Profile updated successfully!');
+            user.phone_number = phoneNumber;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            loadProfileData();
+        } else {
+            showNotification('Profile update failed: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Profile update failed', 'error');
+    });
+}
+
+function loadProfileData() {
+    const user = getCurrentUser();
+    if (!user) return;
+    
+    // Load profile data
+    document.getElementById('profile-name').value = user.name || '';
+    document.getElementById('profile-email').value = user.email || '';
+    document.getElementById('profile-phone').value = user.phone_number || '';
+    
+    // Load statistics
+    loadProfileStats(user.id);
+}
+
+function loadProfileStats(userId) {
+    // Load transaction count
+    fetch('/api/mpesa.php?action=transactions&user_id=' + userId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('transaction-count').textContent = data.transactions.length;
+            }
+        });
+    
+    // Load target count
+    fetch('/api/mpesa.php?action=daily_target&user_id=' + userId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.target) {
+                document.getElementById('target-count').textContent = '1';
+            } else {
+                document.getElementById('target-count').textContent = '0';
+            }
+        });
 }
 
 // Update time display (removed since header was removed)

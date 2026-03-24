@@ -133,6 +133,10 @@
                             <span class="btn-icon">💰</span>
                             <span>M-Pesa</span>
                         </button>
+                        <button class="action-btn" onclick="showScreen('profile-screen')">
+                            <span class="btn-icon">👤</span>
+                            <span>Profile</span>
+                        </button>
                         <button class="action-btn" onclick="showScreen('report-screen')">
                             <span class="btn-icon">📈</span>
                             <span>View Report</span>
@@ -144,20 +148,59 @@
                     <h2>Recent Activity</h2>
                     <div class="activity-list">
                         <div class="activity-item">
-                            <div class="activity-icon">🏆</div>
-                            <div class="activity-content">
+                            <div class="activity-icon">📝</div>
+                            <div class="activity-details">
                                 <div class="activity-title">Quiz Completed</div>
-                                <div class="activity-desc">Budgeting Basics - 90%</div>
+                                <div class="activity-time">2 hours ago</div>
                             </div>
-                            <div class="activity-time">2h ago</div>
                         </div>
                         <div class="activity-item">
-                            <div class="activity-icon">💸</div>
-                            <div class="activity-content">
-                                <div class="activity-title">Expense Logged</div>
-                                <div class="activity-desc">Lunch - $12.50</div>
+                            <div class="activity-icon">💰</div>
+                            <div class="activity-details">
+                                <div class="activity-title">Transaction Recorded</div>
+                                <div class="activity-time">5 hours ago</div>
                             </div>
-                            <div class="activity-time">5h ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h2>👤 My Profile</h2>
+                    
+                    <div class="profile-form">
+                        <div class="form-group">
+                            <label for="profile-name">Name</label>
+                            <input type="text" id="profile-name" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email">Email</label>
+                            <input type="email" id="profile-email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-phone">Phone Number</label>
+                            <input type="text" id="profile-phone" placeholder="0746934301">
+                            <small>Format: 0746934301 (for M-Pesa transactions)</small>
+                        </div>
+                        <button class="login-btn" onclick="updateProfile()">Update Profile</button>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <h3>Account Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">💰</div>
+                                <div class="stat-content">
+                                    <div class="stat-value" id="transaction-count">0</div>
+                                    <div class="stat-label">Transactions</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🎯</div>
+                                <div class="stat-content">
+                                    <div class="stat-value" id="target-count">0</div>
+                                    <div class="stat-label">Daily Targets</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
