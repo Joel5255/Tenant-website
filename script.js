@@ -89,11 +89,14 @@ function handleLogin() {
             localStorage.setItem('currentUser', JSON.stringify(data.user));
             isAuthenticated = true;
             
-            // Add authenticated class to show navigation
-            document.body.classList.add('authenticated');
-            
             showNotification('Login successful!');
             showScreen('home-screen');
+            
+            // Show footer navigation when logged in
+            const footer = document.querySelector('.footer');
+            if (footer) {
+                footer.classList.add('show');
+            }
         } else {
             showNotification(data.error || 'Login failed', 'error');
         }
@@ -187,13 +190,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedUser) {
         currentUser = savedUser;
         isAuthenticated = true;
-        
-        // Add authenticated class to show navigation
-        document.body.classList.add('authenticated');
-        
         showScreen('home-screen');
+        // Show footer navigation when logged in
+        const footer = document.querySelector('.footer');
+        if (footer) {
+            footer.classList.add('show');
+        }
     } else {
         showScreen('login-screen');
+        // Hide footer navigation when not logged in
+        const footer = document.querySelector('.footer');
+        if (footer) {
+            footer.classList.remove('show');
+        }
     }
 });
 
