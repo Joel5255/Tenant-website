@@ -89,6 +89,9 @@ function handleLogin() {
             localStorage.setItem('currentUser', JSON.stringify(data.user));
             isAuthenticated = true;
             
+            // Add authenticated class to show navigation
+            document.body.classList.add('authenticated');
+            
             showNotification('Login successful!');
             showScreen('home-screen');
         } else {
@@ -184,6 +187,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedUser) {
         currentUser = savedUser;
         isAuthenticated = true;
+        
+        // Add authenticated class to show navigation
+        document.body.classList.add('authenticated');
+        
         showScreen('home-screen');
     } else {
         showScreen('login-screen');
